@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -v
+
+if [ ! -d .tags ]; then
+    mkdir .tags
+fi
+
+find . -iname "*.c"    > .tags/cscope.files
+find . -iname "*.cpp" >> .tags/cscope.files
+find . -iname "*.cxx" >> .tags/cscope.files
+find . -iname "*.cc " >> .tags/cscope.files
+find . -iname "*.h"   >> .tags/cscope.files
+find . -iname "*.hpp" >> .tags/cscope.files
+find . -iname "*.hxx" >> .tags/cscope.files
+find . -iname "*.hh " >> .tags/cscope.files
+
+cscope -cb -i '.tags/cscope.files' -f '.tags/cscope.out'
+
+ctags --fields=+i -n -R -L .tags/cscope.files -f '.tags/tags'
+
+cqmakedb -s .tags/project.db -c .tags/cscope.out -t .tags/tags -p
+
+if [ ! -f tags ]; then
+    ln -s .tags/tags
+fi
+if [ ! -f cscope.out ]; then
+    ln -s .tags/cscope.out
+fi
+
+set +v

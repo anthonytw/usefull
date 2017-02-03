@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Fonts and colors!
+export B=`tput bold`
+export NB=`tput sgr0`
+
+export ColReset='\e[0m'
+export ColBlack='\e[0;30m'
+export ColBlue='\e[0;34m'
+export ColGreen='\e[0;32m'
+export ColCyan='\e[0;36m'
+export ColRed='\e[0;31m'
+export ColPurple='\e[0;35m'
+export ColBrown='\e[0;33m'
+export ColLightGray='\e[0;37m'
+export ColDarkGray='\e[1;30m'
+export ColLightBlue='\e[1;34m'
+export ColLightGreen='\e[1;32m'
+export ColLightCyan='\e[1;36m'
+export ColLightRed='\e[1;31m'
+export ColLightPurple='\e[1;35m'
+export ColYellow='\e[1;33m'
+export ColWhite='\e[1;37m'

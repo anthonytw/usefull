@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Correct usage: cpd source destination"
+    exit
+fi
+
+rsync -a --info=progress2 $1 $2

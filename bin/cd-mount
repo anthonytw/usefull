@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo mount -o ro -t iso9660 /dev/sr0 /mnt/cdrom

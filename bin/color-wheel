@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for color in `echo "${!Col*}"`
+do
+    echo -e "${!color}$color - ${B}Bold${NB}${ColReset}"
+done
