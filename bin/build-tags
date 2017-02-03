@@ -6,14 +6,15 @@ if [ ! -d .tags ]; then
     mkdir .tags
 fi
 
-find . -iname "*.c"    > .tags/cscope.files
-find . -iname "*.cpp" >> .tags/cscope.files
-find . -iname "*.cxx" >> .tags/cscope.files
-find . -iname "*.cc " >> .tags/cscope.files
-find . -iname "*.h"   >> .tags/cscope.files
-find . -iname "*.hpp" >> .tags/cscope.files
-find . -iname "*.hxx" >> .tags/cscope.files
-find . -iname "*.hh " >> .tags/cscope.files
+HERE=`readlink -e .`
+find $HERE -iname "*.c"    > .tags/cscope.files
+find $HERE -iname "*.cpp" >> .tags/cscope.files
+find $HERE -iname "*.cxx" >> .tags/cscope.files
+find $HERE -iname "*.cc " >> .tags/cscope.files
+find $HERE -iname "*.h"   >> .tags/cscope.files
+find $HERE -iname "*.hpp" >> .tags/cscope.files
+find $HERE -iname "*.hxx" >> .tags/cscope.files
+find $HERE -iname "*.hh " >> .tags/cscope.files
 
 cscope -cb -i '.tags/cscope.files' -f '.tags/cscope.out'
 
