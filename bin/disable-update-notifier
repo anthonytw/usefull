@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sudo killall update-notifier
+sudo mv /usr/bin/update-notifier /usr/bin/update-notifier.real
+echo -e '#!/bin/bash\nwhile :; do /bin/sleep 86400; done' | sudo tee /usr/bin/update-notifier
+sudo chmod 755 /usr/bin/update-notifier
+
+sudo dpkg-divert --divert /usr/bin/update-notifier.ubuntu --rename /usr/bin/update-notifier
+
+sudo cp /usr/bin/update-notifier.ubuntu /usr/bin/update-notifier
