@@ -1,23 +1,29 @@
 #!/bin/bash
 
-if [ ! "$#" == "1" ]; then
-	echo "Specify the path (and just one path) to remove."
+if [ "$#" == "0" ]; then
+	echo "Specify the paths to remove!"
 	exit
 fi
 
-ABSPATH=`readlink -e "$1"`
-NUMFILES=`find "$ABSPATH" -maxdepth 3 -type f 2> /dev/null | wc -l`
-NUMDIRS=`find "$ABSPATH" -maxdepth 3 -type d 2> /dev/null | wc -l`
+for var in "$@"
+do
+	ABSPATH=`readlink -e "$var"`
+	NUMFILES=`find "$ABSPATH" -maxdepth 3 -type f 2> /dev/null | wc -l`
+	NUMDIRS=`find "$ABSPATH" -maxdepth 3 -type d 2> /dev/null | wc -l`
 
-echo "## ! You are asking to delete the entire directory tree under:"
-echo "##   -> $ABSPATH"
-echo "##   This includes at least $NUMDIRS directories and $NUMFILES files."
-echo -n "##   Are you sure? (y/N): "
-read RESPONSE
+	echo
+	echo "## ! You are asking to delete the entire directory tree under:"
+	echo "##"
+	echo -e "##   -> $ColBrown$ABSPATH$ColReset"
+	echo "##"
+	echo "##   This includes at least $NUMDIRS directories and $NUMFILES files."
+	echo -n "##   Are you sure? (y/N): "
+	read RESPONSE
 
-if [ "$RESPONSE" == "y" ]; then
-	echo "##   Deleting!"
-	rm -rfv "$ABSPATH"
-else
-	echo "##   You didn't say exactly 'y' so I'll take that to mean 'no'. :-)"
-fi
+	if [ "$RESPONSE" == "y" ]; then
+		echo "##   Deleting!"
+		rm -rfv "$ABSPATH"
+	else
+		echo "##   You didn't say exactly 'y' so I'll take that to mean 'no'. :-)"
+	fi
+done
