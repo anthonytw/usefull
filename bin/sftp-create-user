@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# usage: create_sftp_user <username>
+function create_sftp_user() {
+	# create user
+	sudo adduser $1
+
+	# prevent ssh login & assign SFTP group
+	sudo usermod -g sftpusers $1
+	sudo usermod -s /usr/sbin/nologin $1
+	sudo usermod -m -d /home/sftp-home/$1 $1
+	sudo rm -rf /home/sftp-home/$1/*
+
+	# chroot user (so they only see their directory after login)
+	sudo chown root:$1 /home/sftp-home/$1
+	sudo chmod 755 /home/sftp-home/$1
+
+	sudo mkdir /home/sftp-home/$1/uploads
+	sudo chown $1:$1 /home/sftp-home/$1/uploads
+	sudo chmod 755 /home/sftp-home/$1/uploads
+}
+
+if [ ! "$#" -eq "1" ]; then
+	echo "Usage: sftp-create-user USERNAME"
+	exit 1
+fi
+
+create_sftp_user $1
